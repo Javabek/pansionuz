@@ -1,6 +1,7 @@
 console.log("web server started");
 const express = require("express");
 const app = express();
+const router = require("./router.js")
 
 //calling mongoDb
 const db = require("./server").db();
@@ -19,5 +20,6 @@ app.set("view engine", "ejs");
 
 
 //routing code
+app.use("/", router)
 
 module.exports = app;
