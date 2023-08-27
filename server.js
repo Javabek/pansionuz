@@ -1,9 +1,12 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const http = require("http");
 const mongodb = require("mongodb");
 
 
 let db;
-const connectionString = "mongodb+srv://javabek1203:javabek1203@cluster0.zplrjvz.mongodb.net/Pansionuz"
+const connectionString = process.env.MONGO_URL
 
 mongodb.connect(connectionString, {
     useNewUrlParser: true,
@@ -13,11 +16,11 @@ mongodb.connect(connectionString, {
         if (err) {
             console.log("Error on connection to MongoDb");
         } else {
-            console.log("Database ga muvaffa1iyatli ulandi");
+            console.log("MongoDb connection succeed");
             module.exports = client;
             const app = require("./app");
             const server = http.createServer(app);
-            let PORT = process.env.PORT || 3000;
+            let PORT = process.env.PORT || 3003;
             server.listen(PORT, function () {
                 console.log(`The server is running successfully on port ${PORT}, http://localhost:${PORT}`);
             })
