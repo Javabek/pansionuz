@@ -12,6 +12,7 @@ memberController.signup = async (req, res) => {
         res.json({ state: "succeed", data: new_member })
     } catch (err) {
         console.log(`Error, cont/signup, ${err.message}`);
+        res.json({ state: "failed", message: err.message })
     }
 }
 
@@ -25,6 +26,7 @@ memberController.login = async (req, res) => {
         res.json({ state: "succeed", data: result })
     } catch (err) {
         console.log(`Error, cont/login, ${err.message}`);
+        res.json({ state: "failed", message: err.message })
     }
 }
 
