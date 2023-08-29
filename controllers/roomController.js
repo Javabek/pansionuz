@@ -40,6 +40,15 @@ roomController.addNewRoom = async (req, res) => {
 roomController.updateChosenRoom = async (req, res) => {
     try {
         console.log("POST: cont/updateChosenRoom");
+        const room = new Room();
+        const id = req.params.id;
+
+        const result = await room.updateChosenRoomData(
+            id,
+            req.body,
+            req.member._id
+        );
+        await res.json({ state: "success", data: result });
     } catch (error) {
         console.log(`Error, cont/updateChosenRoom, ${error.message}`);
         res.json({ state: "fail", message: error.message });

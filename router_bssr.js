@@ -27,6 +27,11 @@ router_bssr.post(
     uploader_room.array("room_images", 5),
     roomController.addNewRoom
 );
-router_bssr.post("/rooms/edit/:id"), roomController.updateChosenRoom;
+
+router_bssr.post(
+    "/rooms/edit/:id",
+    pansionController.validateAuthPansion,
+    roomController.updateChosenRoom
+);
 
 module.exports = router_bssr;
