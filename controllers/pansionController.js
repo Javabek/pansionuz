@@ -71,6 +71,18 @@ pansionController.logout = (req, res) => {
     res.send("logout sahifadasiz")
 };
 
+pansionController.validateAuthPansion = (req, res, next) => {
+    if (req.session?.member?.mb_type === "PANSION") {
+        req.member = req.session.member;
+        next();
+    } else {
+        res.json({
+            state: "fail",
+            message: "only authenticated members with pansion type",
+        });
+    }
+};
+
 pansionController.checkSessions = (req, res) => {
     if (req.session?.member) {
         res.json({ state: "succeed", data: req.session.member });
