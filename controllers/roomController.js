@@ -1,3 +1,7 @@
+const Room = require("../models/Room");
+const assert = require("assert");
+const Definer = require("../lib/mistake");
+
 let roomController = module.exports;
 
 roomController.getAllRoom = async (req, res) => {
@@ -11,14 +15,25 @@ roomController.getAllRoom = async (req, res) => {
 
 roomController.addNewRoom = async (req, res) => {
     try {
-        console.log("POST: cont/addNewRoom");
+        assert(req.files, Definer.general_err3)
 
-        //TODO: room creation develop
+        const room = new Room()
+        let data = req.body
 
-        res.send("ok")
+        data.room_images = req.files.map((ele) => {
+            return ele.path;
+        })
+
+        const result = await room.addNewRoomData(data, req.member);
+        assert(result, Definer.room_err1);
+
+        const html = `<script>
+                           alert(new room added succesfully);
+                           window.location.replace('/resto/room/types');
+                      </script>`;
+        res.end(html);
     } catch (error) {
         console.log(`Error, cont/addNewRoom, ${error.message}`);
-        res.json({ state: "fail", message: error.message });
     }
 };
 
