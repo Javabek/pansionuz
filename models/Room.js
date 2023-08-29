@@ -1,0 +1,1 @@
+const RoomModel = require("../schema/room.model");
